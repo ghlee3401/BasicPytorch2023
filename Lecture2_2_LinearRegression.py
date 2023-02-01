@@ -63,11 +63,12 @@ for epoch in range(total_epochs):
         plt.ylabel("y")
         point1 = (-4, -4 * wt.item() + bt.item()) # x값이 적당히 작을때 직선 위의 점
         point2 = (4, 4 * wt.item() + bt.item()) # x값이 적당히 클때 직선 위의 점
-        plt.plot([point1[0], point2[0]], [point1[1], point2[1]], 'r')
+        plt.plot([point1[0], point2[0]], [point1[1], point2[1]], 'r', label="Predict")
         point1 = (-4, -4 * w + b) # x값이 적당히 작을때 직선 위의 점
         point2 = (4, 4 * w + b) # x값이 적당히 클때 직선 위의 점
-        plt.plot([point1[0], point2[0]], [point1[1], point2[1]], 'g')
+        plt.plot([point1[0], point2[0]], [point1[1], point2[1]], 'g', label="True")
         plt.grid() 
+        plt.legend()
         plt.title("Epoch : {}".format(epoch))
         plt.savefig("lec2_2_{}.png".format(cnt)) 
         plt.close() 
