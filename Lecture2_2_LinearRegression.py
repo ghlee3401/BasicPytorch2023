@@ -2,6 +2,9 @@ import torch
 import numpy as np 
 import matplotlib.pyplot as plt 
 
+torch.manual_seed(777)
+np.random.seed(777)
+
 x = np.random.randn(100)
 w = 2.0
 b = 1.0 
@@ -32,7 +35,7 @@ print(yt.size())
 wt = torch.ones(1, requires_grad=True) 
 bt = torch.zeros(1, requires_grad=True)
 
-optim = torch.optim.SGD([wt, bt], lr=0.0005) 
+optim = torch.optim.SGD([wt, bt], lr=0.0001) 
 
 y_hat = xt[0] * wt + bt
 err = torch.mean((y_hat - yt[0]) ** 2)
@@ -41,7 +44,7 @@ optim.zero_grad()
 err.backward() 
 optim.step() 
 
-total_epochs = 11  #모든 데이터를 한 번 다 보는 주기를 epoch
+total_epochs = 31  #모든 데이터를 한 번 다 보는 주기를 epoch
 cnt = 2
 for epoch in range(total_epochs):
     for i in range(len(x)):
@@ -54,7 +57,7 @@ for epoch in range(total_epochs):
     
     print("Epoch : {}, Error : {}".format(epoch, err))
 
-    if epoch % 2 == 0:
+    if epoch % 10 == 0:
         plt.scatter(x, y) 
         plt.xlabel("x")
         plt.ylabel("y")
@@ -65,6 +68,7 @@ for epoch in range(total_epochs):
         point2 = (4, 4 * w + b) # x값이 적당히 클때 직선 위의 점
         plt.plot([point1[0], point2[0]], [point1[1], point2[1]], 'g')
         plt.grid() 
+        plt.title("Epoch : {}".format(epoch))
         plt.savefig("lec2_2_{}.png".format(cnt)) 
         plt.close() 
         cnt += 1
